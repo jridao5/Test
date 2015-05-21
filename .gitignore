@@ -1,2 +1,7 @@
 .DS_Store
 *.class
+/ColorfulCircles/nbproject/private/
+/ColorfulCircles/build/
+/Rectangles/nbproject/private/
+/Rectangles/dist/
+/Rectangles/build/
