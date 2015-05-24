@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="JSONTest.jar" size="2989" download="eager" />
+    <jar href="JSONTest.jar" size="3038" download="eager" />
     <jar href="lib/gson-2.3.1-javadoc.jar" size="257555" download="eager" />
     <jar href="lib/gson-2.3.1-sources.jar" size="139924" download="eager" />
     <jar href="lib/gson-2.3.1.jar" size="210856" download="eager" />
