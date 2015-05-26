@@ -14,8 +14,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 /**
  *z
@@ -27,7 +30,7 @@ public class ImageLayout extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("RAFLIX");
+        primaryStage.setTitle("JAFLIX");
        ScrollPane scrollPane = new ScrollPane();
         GridPane gridpane = new GridPane();
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
@@ -35,21 +38,25 @@ public class ImageLayout extends Application {
         scrollPane.setPrefSize(500, 500);
         scrollPane.setContent(gridpane);
         Scene scene = new Scene(scrollPane);
-  
 
-      image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),200,100,true, false));
-      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_poster.jpg"),200,100,true, false));
-     
-
+      image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),400,200,true, false));
+      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),200,100,true, false));
+      //image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_poster.jpg"),300,100,true, false));
+      gridpane.setPrefSize(100, 100);
+   gridpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                     Pane root = new Pane();
-                   root.getChildren().add(image1);
-                    root.getChildren().add(image2);
-                    gridpane.setAlignment(Pos.CENTER);
-        gridpane.setPadding(new Insets(50, 50, 50, 50));
+                    gridpane.add(image1,1,1);
+                    gridpane.add(image2,2,1);
+                    //gridpane.setAlignment(Pos.CENTER);
+        gridpane.setPadding(new Insets(200, 50, 50, 50));
 
-        gridpane.setHgap(50);
+        gridpane.setHgap(200);
         gridpane.setVgap(50);
-                    primaryStage.setScene(new Scene(root, 300, 250));
+       
+      
+
+                    primaryStage.setScene(new Scene(gridpane, 300, 250));
+                    primaryStage.setResizable(true);
                     primaryStage.show();
     }
     /**
