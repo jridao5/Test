@@ -26,8 +26,9 @@ import javafx.stage.Stage;
 public class JSONTest extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws MalformedURLException, UnsupportedEncodingException, IOException {
-        File folder = new File("/Users/thejuandesire/Documents/Rafael/Test/Movies"); //makes a path to the specified folder
+    public void start(Stage primaryStage) throws MalformedURLException, UnsupportedEncodingException, IOException 
+    {
+        File folder = new File("/Users/jridao5/Documents/Test/Movies"); //makes a path to the specified folder
         File[] listOfFiles = folder.listFiles(); //makes an arrayList of file objects
         
         for (File movie:listOfFiles)
