@@ -7,6 +7,7 @@ package downloadimages;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,7 +38,10 @@ public class DownloadImages extends Application {
         }
         byte[] response = out.toByteArray();
         
-        try (FileOutputStream fos = new FileOutputStream("/Users/jridao5/Documents/Posters")) {
+        File image = new File("/Users/jridao5/Documents/poster.jpg");
+        
+        try (FileOutputStream fos = new FileOutputStream(image))
+        {
             fos.write(response);
             fos.flush();
             fos.close();
