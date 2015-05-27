@@ -8,17 +8,11 @@ package jsontest;
 //JSON Imports
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 //downloadImage() imports
 import java.io.BufferedInputStream;
