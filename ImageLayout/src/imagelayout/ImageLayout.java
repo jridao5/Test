@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  * @author jvravic5
  */
 public class ImageLayout extends Application {
-    private ImageView image1,image2;
+    private ImageView image1,image2,image3,image4,image5,image6,image7,image8;
     private Object context;
     
     @Override
@@ -39,14 +39,26 @@ public class ImageLayout extends Application {
         scrollPane.setContent(gridpane);
         Scene scene = new Scene(scrollPane);
 
-      image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Dark Knight (2008).rtf"),400,200,true, false));
-   
-      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Dark Knight Rises"),400,200,true, false));
+      image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Dark Knight copy.jpg"),400,200,true, false));
+      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Dark Knight Rises copy.jpg"),400,200,true, false));
+      image3= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Fault in Our Stars copy.jpg"),400,200,true, false));
+      image4= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The LEGO Movie Videogame copy.jpg"),400,200,true, false));
+      image5= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Lion King copy.jpg"),400,200,true, false));
+      image6= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Toy Story 2 copy.jpg"),400,200,true, false));
+      image7= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Toy Story 3 copy.jpg"),400,200,true, false));
+      image8= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Toy Story copy.jpg"),400,200,true, false));
+      
       gridpane.setPrefSize(100, 100);
    gridpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                     Pane root = new Pane();
                     gridpane.add(image1,1,1);
                     gridpane.add(image2,2,1);
+                    gridpane.add(image3,3,1);
+                    gridpane.add(image4,4,1);
+                    gridpane.add(image5,1,2);
+                    gridpane.add(image6,2,2);
+                    gridpane.add(image7,3,2);
+                    gridpane.add(image8,4,2);
                     //gridpane.setAlignment(Pos.CENTER);
         gridpane.setPadding(new Insets(50, 50, 50, 50));
 
