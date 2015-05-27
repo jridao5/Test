@@ -40,17 +40,17 @@ public class ImageLayout extends Application {
         Scene scene = new Scene(scrollPane);
 
       image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),400,200,true, false));
-      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),200,100,true, false));
-      //image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_poster.jpg"),300,100,true, false));
+   
+      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_Poster.jpg"),400,200,true, false));
       gridpane.setPrefSize(100, 100);
    gridpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                     Pane root = new Pane();
                     gridpane.add(image1,1,1);
                     gridpane.add(image2,2,1);
                     //gridpane.setAlignment(Pos.CENTER);
-        gridpane.setPadding(new Insets(200, 50, 50, 50));
+        gridpane.setPadding(new Insets(50, 50, 50, 50));
 
-        gridpane.setHgap(200);
+        gridpane.setHgap(50);
         gridpane.setVgap(50);
        
       
