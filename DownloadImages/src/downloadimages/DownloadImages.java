@@ -38,7 +38,7 @@ public class DownloadImages extends Application {
         }
         byte[] response = out.toByteArray();
         
-        File image = new File("/Users/jridao5/Documents/poster.jpg");
+        File image = new File("/Users/thejuandesire/Documents/Rafael/Posters/Batman Begins.jpg");
         
         try (FileOutputStream fos = new FileOutputStream(image))
         {

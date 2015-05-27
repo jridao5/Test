@@ -5,6 +5,7 @@
  */
 package jsontest;
 
+//JSON Imports
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.File;
@@ -19,6 +20,16 @@ import java.util.Map;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+//downloadImage() imports
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javafx.application.Application;
+import javafx.stage.Stage;
 /**
  *
  * @author thejuandesire
@@ -28,7 +39,7 @@ public class JSONTest extends Application {
     @Override
     public void start(Stage primaryStage) throws MalformedURLException, UnsupportedEncodingException, IOException 
     {
-        File folder = new File("/Users/jridao5/Documents/Test/Movies"); //makes a path to the specified folder
+        File folder = new File("/Users/thejuandesire/Documents/Rafael/Test/Movies"); //makes a path to the specified folder
         File[] listOfFiles = folder.listFiles(); //makes an arrayList of file objects
         
         for (File movie:listOfFiles)
@@ -49,7 +60,9 @@ public class JSONTest extends Application {
             String plot = map.get("Plot");
             String imdbRating = map.get("imdbRating");
             String poster = map.get("Poster");
-            printStuff(title, released, runtime, genre, actors, plot, imdbRating, poster);  
+            printStuff(title, released, runtime, genre, actors, plot, imdbRating, poster);
+            downloadImage(title, poster);
+            
         }
         
     }
@@ -61,6 +74,33 @@ public class JSONTest extends Application {
                             "\nPlot: " + plot + "\nimdbRating: " + imdbRating + "\nPoster: " + poster + "\n");
     }
 
+    public void downloadImage(String name, String link) throws MalformedURLException, IOException 
+    {
+        URL url = new URL(link);
+        ByteArrayOutputStream out;
+        try (BufferedInputStream in = new BufferedInputStream(url.openStream())) {
+            out = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            int n = 0;
+            while (-1!=(n=in.read(buf)))
+            {
+                out.write(buf, 0, n);
+            }
+            out.close();
+        }
+        byte[] response = out.toByteArray();
+
+        String location = "/Users/thejuandesire/Documents/Rafael/Posters/" + name + ".jpg";
+        File image = new File(location);
+        
+        try (FileOutputStream fos = new FileOutputStream(image))
+        {
+            fos.write(response);
+            fos.flush();
+            fos.close();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
