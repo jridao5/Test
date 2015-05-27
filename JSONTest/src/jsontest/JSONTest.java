@@ -68,10 +68,11 @@ public class JSONTest extends Application {
     }
     
     public void printStuff(String title, String released, String runtime, 
-                            String genre, String actors, String plot, String imdbRating, String poster){
+                            String genre, String actors, String plot, String imdbRating, String poster)
+    {
         System.out.println("Title: " + title + "\nReleased: " + released + 
                             "\nRuntime: " + runtime + "\nGenre: "+ genre + "\nActors: " + actors +
-                            "\nPlot: " + plot + "\nimdbRating: " + imdbRating + "\nPoster: " + poster + "\n");
+                            "\nPlot: " + plot + "\nimdbRating: " + imdbRating + "\n");
     }
 
     public void downloadImage(String name, String link) throws MalformedURLException, IOException 
