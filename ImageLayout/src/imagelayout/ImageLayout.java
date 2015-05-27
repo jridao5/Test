@@ -39,9 +39,9 @@ public class ImageLayout extends Application {
         scrollPane.setContent(gridpane);
         Scene scene = new Scene(scrollPane);
 
-      image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),400,200,true, false));
+      image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Dark Knight (2008).rtf"),400,200,true, false));
    
-      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_Poster.jpg"),400,200,true, false));
+      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/The Dark Knight Rises"),400,200,true, false));
       gridpane.setPrefSize(100, 100);
    gridpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
                     Pane root = new Pane();
