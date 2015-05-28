@@ -8,6 +8,7 @@ package jsontest;
 //JSON Imports
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -24,8 +25,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+//other imports
+import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 /**
  *
  * @author thejuandesire
@@ -33,18 +39,22 @@ import javafx.stage.Stage;
 public class JSONTest extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws MalformedURLException, UnsupportedEncodingException, IOException 
+    public void start(Stage primaryStage)  
     {
-        File folder = new File("/Users/jridao5/Documents/Test/Movies"); //makes a path to the specified folder
-        File[] listOfFiles = folder.listFiles(); //makes an arrayList of file objects
         
+        ArrayList<Movie> movieList = new ArrayList<>();
+        
+        
+    }
+
+    public void queryDatabase() throws MalformedURLException, UnsupportedEncodingException, IOException {
+        File folder = new File("/Users/thejuandesire/Documents/Rafael/Test/Movies"); //makes a path to the specified folder
+        File[] listOfFiles = folder.listFiles(); //makes an array of File objects
         for (File movie:listOfFiles)
         {
             String movieTitle = movie.getName().substring(0,movie.getName().indexOf("(")); //Change this to a title of a movie to test
           
             InputStream input = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).openStream();
-            //String site = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).toString();
-            //System.out.println(site);
             
             Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>(){}.getType());
 
@@ -61,10 +71,17 @@ public class JSONTest extends Application {
             createTextFile(title, info);
             downloadImage(title, poster);
         }
-        
     }
-
-    public void downloadImage(String name, String link) throws MalformedURLException, IOException 
+    
+    /**
+     *
+     * @param name
+     * @param link
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public BufferedImage downloadImage(String name, String link) throws MalformedURLException, IOException 
     {
         URL url = new URL(link);
         ByteArrayOutputStream out;
@@ -80,7 +97,7 @@ public class JSONTest extends Application {
         }
         byte[] response = out.toByteArray();
 
-        String location = "/Users/jridao5/Documents/Test/Posters/" + name + ".jpg";
+        String location = "/Users/thejuandesire/Documents/Rafael/Posters/" + name + ".jpg";
         File image = new File(location);
         
         try (FileOutputStream fos = new FileOutputStream(image))
@@ -89,6 +106,8 @@ public class JSONTest extends Application {
             fos.flush();
             fos.close();
         }
+        
+        return ImageIO.read(new File(location);
     }
     
     public String createString(String title, String released, String runtime, 
@@ -106,7 +125,7 @@ public class JSONTest extends Application {
     {
         try 
         {
-            String location = "/Users/jridao5/Documents/" + name;
+            String location = "/Users/thejuandesire/Documents/Rafael/Descriptions/" + name;
             File file = new File(location);
 
             // if file doesnt exists, then create it
