@@ -12,6 +12,8 @@ import javafx.geometry.Pos;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.text.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -27,6 +29,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 /**
  *z
@@ -53,8 +57,10 @@ public class ImageLayout extends Application {
     @Override
     public void handle(MouseEvent mouseEvent) {
          Stage stage = new Stage();
-            System.out.println("mouse click detected! Hello World");
-        stage.show();
+        Scene scene = new Scene(new Group(new Text(25, 25, "Hello World!"))); 
+        stage.setScene(scene);
+        stage.sizeToScene();
+         stage.show();
       
     }
 });
@@ -62,7 +68,7 @@ public class ImageLayout extends Application {
                     gridpane.add(image1,1,1);
                     gridpane.add(image2,2,1);
                     //gridpane.setAlignment(Pos.CENTER);
-        gridpane.setPadding(new Insets(200, 50, 50, 50));
+        gridpane.setPadding(new Insets(50, 50, 50, 50));
 
         gridpane.setHgap(200);
         gridpane.setVgap(50);
