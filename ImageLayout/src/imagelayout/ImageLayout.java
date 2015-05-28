@@ -9,11 +9,19 @@ package imagelayout;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -40,10 +48,16 @@ public class ImageLayout extends Application {
         Scene scene = new Scene(scrollPane);
 
       image1= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),400,200,true, false));
-      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_&_robin_poster.jpg"),200,100,true, false));
-      //image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_poster.jpg"),300,100,true, false));
-      gridpane.setPrefSize(100, 100);
-   gridpane.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+      image2= new ImageView(new Image(ImageLayout.class.getResourceAsStream("images/Batman_Begins_Poster.jpg"),400,200,true, false));
+      image1.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+         Stage stage = new Stage();
+            System.out.println("mouse click detected! Hello World");
+        stage.show();
+      
+    }
+});
                     Pane root = new Pane();
                     gridpane.add(image1,1,1);
                     gridpane.add(image2,2,1);
