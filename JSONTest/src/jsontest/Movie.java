@@ -6,6 +6,7 @@
 package jsontest;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -14,15 +15,27 @@ import java.awt.Image;
 public class Movie {
     
     private String description;
-    private Image poster;
+    private BufferedImage poster;
             
-    public Movie(Image picture, String content){
+    public Movie(BufferedImage picture, String content){
         poster = picture;
         description = content;
     }
     
-    private void printDescription(){
-        System.out.println(description);
+    /**
+     *
+     * @return
+     */
+    public String getDescription(){
+        return description;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public BufferedImage getImage(){
+        return poster;
     }
     
 }
