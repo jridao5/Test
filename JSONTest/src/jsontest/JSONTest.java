@@ -8,6 +8,7 @@ package jsontest;
 //JSON Imports
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -24,8 +25,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+//other imports
+import java.util.ArrayList;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 /**
  *
  * @author thejuandesire
@@ -33,38 +40,55 @@ import javafx.stage.Stage;
 public class JSONTest extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws MalformedURLException, UnsupportedEncodingException, IOException 
-    {
-        File folder = new File("/Users/jridao5/Documents/Test/Movies"); //makes a path to the specified folder
-        File[] listOfFiles = folder.listFiles(); //makes an arrayList of file objects
+    public void start(Stage primaryStage) throws UnsupportedEncodingException, IOException  {
         
-        for (File movie:listOfFiles)
-        {
-            String movieTitle = movie.getName().substring(0,movie.getName().indexOf("(")); //Change this to a title of a movie to test
-          
-            InputStream input = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).openStream();
-            //String site = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).toString();
-            //System.out.println(site);
+        ArrayList<Movie> movieList = new ArrayList<>();
+        
+        File folder = new File("/Users/thejuandesire/Documents/Rafael/Test/Movies"); //makes a path to the specified folder
+        File[] listOfFiles = folder.listFiles(); //makes an array of File objects
+        
+        for (File movie:listOfFiles) {
+            Map<String, String> database = queryDatabase(movie);
+            String title = database.get("Title");
+            String released = database.get("Released");
+            String runtime = database.get("Runtime");
+            String genre = database.get("Genre");
+            String actors = database.get("Actors");
+            String plot = database.get("Plot");
+            String imdbRating = database.get("imdbRating");
+            String poster = database.get("Poster");
             
-            Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>(){}.getType());
-
-            String title = map.get("Title");
-            String released = map.get("Released");
-            String runtime = map.get("Runtime");
-            String genre = map.get("Genre");
-            String actors = map.get("Actors");
-            String plot = map.get("Plot");
-            String imdbRating = map.get("imdbRating");
-            String poster = map.get("Poster");
+            String content = createString(title, released, runtime, genre, actors, plot, imdbRating, poster); //createTextFile(title, content);
+            BufferedImage picture = downloadImage(title, poster);
             
-            String info = createString(title, released, runtime, genre, actors, plot, imdbRating, poster);
-            createTextFile(title, info);
-            downloadImage(title, poster);
+            movieList.add(new Movie(picture, content));
         }
-        
+        System.out.println(movieList.get(4).getDescription());
     }
 
-    public void downloadImage(String name, String link) throws MalformedURLException, IOException 
+    /**
+     *
+     * @param movie
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public Map<String, String> queryDatabase(File movie) throws MalformedURLException, IOException {
+        String movieTitle = movie.getName().substring(0,movie.getName().indexOf("(")); //Change this to a title of a movie to test
+        InputStream input = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).openStream();
+        Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>(){}.getType());
+        return map;
+    }
+    
+    /**
+     *
+     * @param name
+     * @param link
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public BufferedImage downloadImage(String name, String link) throws MalformedURLException, IOException 
     {
         URL url = new URL(link);
         ByteArrayOutputStream out;
@@ -80,7 +104,7 @@ public class JSONTest extends Application {
         }
         byte[] response = out.toByteArray();
 
-        String location = "/Users/jridao5/Documents/Test/Posters/" + name + ".jpg";
+        String location = "/Users/thejuandesire/Documents/Rafael/Posters/" + name + ".jpg";
         File image = new File(location);
         
         try (FileOutputStream fos = new FileOutputStream(image))
@@ -89,6 +113,8 @@ public class JSONTest extends Application {
             fos.flush();
             fos.close();
         }
+        
+        return ImageIO.read(new File(location));
     }
     
     public String createString(String title, String released, String runtime, 
@@ -102,11 +128,11 @@ public class JSONTest extends Application {
     
     
     
-    public void createTextFile(String name, String message)
+    /*public void createTextFile(String name, String message)
     {
         try 
         {
-            String location = "/Users/jridao5/Documents/" + name;
+            String location = "/Users/thejuandesire/Documents/Rafael/Descriptions/" + name;
             File file = new File(location);
 
             // if file doesnt exists, then create it
@@ -126,7 +152,7 @@ public class JSONTest extends Application {
  
         } 
         catch (IOException e) {}
-    }
+    }*/
     
     
     /**
