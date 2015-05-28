@@ -57,7 +57,18 @@ public class ImageLayout extends Application {
     @Override
     public void handle(MouseEvent mouseEvent) {
          Stage stage = new Stage();
-        Scene scene = new Scene(new Group(new Text(25, 25, "Hello World!"))); 
+        Scene scene = new Scene(new Group(new Text(250, 100, "Hello World!"))); 
+        stage.setScene(scene);
+        stage.sizeToScene();
+         stage.show();
+      
+    }
+});
+ image2.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+    @Override
+    public void handle(MouseEvent mouseEvent) {
+         Stage stage = new Stage();
+        Scene scene = new Scene(new Group(new Text(250, 100, "hey babe!"))); 
         stage.setScene(scene);
         stage.sizeToScene();
          stage.show();
