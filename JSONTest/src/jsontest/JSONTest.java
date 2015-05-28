@@ -8,6 +8,7 @@ package jsontest;
 //JSON Imports
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -16,14 +17,22 @@ import java.util.Map;
 
 //downloadImage() imports
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+//other imports
+import java.util.ArrayList;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 /**
  *
  * @author thejuandesire
@@ -31,45 +40,62 @@ import javafx.stage.Stage;
 public class JSONTest extends Application {
     
     @Override
+<<<<<<< HEAD
     public void start(Stage primaryStage) throws MalformedURLException, UnsupportedEncodingException, IOException 
     {
         File folder = new File("/Users/jvravic5/Test/Movies"); //makes a path to the specified folder
         File[] listOfFiles = folder.listFiles(); //makes an arrayList of file objects
+=======
+    public void start(Stage primaryStage) throws UnsupportedEncodingException, IOException  {
+>>>>>>> ea41f4fdac7a89503a9f56e759cda3628a84185d
         
-        for (File movie:listOfFiles)
-        {
-            String movieTitle = movie.getName().substring(0,movie.getName().indexOf("(")); //Change this to a title of a movie to test
-          
-            InputStream input = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).openStream();
-            //String site = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).toString();
-            //System.out.println(site);
+        ArrayList<Movie> movieList = new ArrayList<>();
+        
+        File folder = new File("/Users/thejuandesire/Documents/Rafael/Test/Movies"); //makes a path to the specified folder
+        File[] listOfFiles = folder.listFiles(); //makes an array of File objects
+        
+        for (File movie:listOfFiles) {
+            Map<String, String> database = queryDatabase(movie);
+            String title = database.get("Title");
+            String released = database.get("Released");
+            String runtime = database.get("Runtime");
+            String genre = database.get("Genre");
+            String actors = database.get("Actors");
+            String plot = database.get("Plot");
+            String imdbRating = database.get("imdbRating");
+            String poster = database.get("Poster");
             
-            Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>(){}.getType());
-
-            String title = map.get("Title");
-            String released = map.get("Released");
-            String runtime = map.get("Runtime");
-            String genre = map.get("Genre");
-            String actors = map.get("Actors");
-            String plot = map.get("Plot");
-            String imdbRating = map.get("imdbRating");
-            String poster = map.get("Poster");
-            printStuff(title, released, runtime, genre, actors, plot, imdbRating, poster);
-            downloadImage(title, poster);
+            String content = createString(title, released, runtime, genre, actors, plot, imdbRating, poster); //createTextFile(title, content);
+            BufferedImage picture = downloadImage(title, poster);
             
+            movieList.add(new Movie(picture, content));
         }
-        
+        System.out.println(movieList.get(4).getDescription());
+    }
+
+    /**
+     *
+     * @param movie
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public Map<String, String> queryDatabase(File movie) throws MalformedURLException, IOException {
+        String movieTitle = movie.getName().substring(0,movie.getName().indexOf("(")); //Change this to a title of a movie to test
+        InputStream input = new URL("http://www.omdbapi.com/?t=" + URLEncoder.encode(movieTitle, "UTF-8")).openStream();
+        Map<String, String> map = new Gson().fromJson(new InputStreamReader(input, "UTF-8"), new TypeToken<Map<String, String>>(){}.getType());
+        return map;
     }
     
-    public void printStuff(String title, String released, String runtime, 
-                            String genre, String actors, String plot, String imdbRating, String poster)
-    {
-        System.out.println("Title: " + title + "\nReleased: " + released + 
-                            "\nRuntime: " + runtime + "\nGenre: "+ genre + "\nActors: " + actors +
-                            "\nPlot: " + plot + "\nimdbRating: " + imdbRating + "\n");
-    }
-
-    public void downloadImage(String name, String link) throws MalformedURLException, IOException 
+    /**
+     *
+     * @param name
+     * @param link
+     * @return
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public BufferedImage downloadImage(String name, String link) throws MalformedURLException, IOException 
     {
         URL url = new URL(link);
         ByteArrayOutputStream out;
@@ -85,7 +111,11 @@ public class JSONTest extends Application {
         }
         byte[] response = out.toByteArray();
 
+<<<<<<< HEAD
         String location = "/Users/jvravic5/Test/ImageLayout/src/imagelayout/images/" + name + ".jpg";
+=======
+        String location = "/Users/thejuandesire/Documents/Rafael/Posters/" + name + ".jpg";
+>>>>>>> ea41f4fdac7a89503a9f56e759cda3628a84185d
         File image = new File(location);
         
         try (FileOutputStream fos = new FileOutputStream(image))
@@ -94,7 +124,47 @@ public class JSONTest extends Application {
             fos.flush();
             fos.close();
         }
+        
+        return ImageIO.read(new File(location));
     }
+    
+    public String createString(String title, String released, String runtime, 
+                            String genre, String actors, String plot, String imdbRating, String poster)
+    {
+        String content = "Title: " + title + "\nReleased: " + released + 
+                            "\nRuntime: " + runtime + "\nGenre: "+ genre + "\nActors: " + actors +
+                            "\nPlot: " + plot + "\nimdbRating: " + imdbRating + "\n";
+        return content;
+    }
+    
+    
+    
+    /*public void createTextFile(String name, String message)
+    {
+        try 
+        {
+            String location = "/Users/thejuandesire/Documents/Rafael/Descriptions/" + name;
+            File file = new File(location);
+
+            // if file doesnt exists, then create it
+            if (!file.exists()) 
+            {
+                file.createNewFile();
+            }
+ 
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            
+            try (BufferedWriter bw = new BufferedWriter(fw)) 
+            {
+                bw.write(message);
+            }
+ 
+            System.out.println("Done");
+ 
+        } 
+        catch (IOException e) {}
+    }*/
+    
     
     /**
      * @param args the command line arguments
