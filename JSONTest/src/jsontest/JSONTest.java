@@ -44,7 +44,6 @@ public class JSONTest extends Application {
         
         ArrayList<Movie> movieList = new ArrayList<>();
         
-        
     }
 
     public void queryDatabase() throws MalformedURLException, UnsupportedEncodingException, IOException {
